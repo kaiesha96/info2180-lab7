@@ -7,14 +7,6 @@ window.onload = function(){
     
     btn.addEventListener("click", function(e){
         var country = cuntry.value;
-        if(country === "Jamaica"){
-        xhr.onreadystatechange = getInfo;
-        url = "world.php?country=" + country;
-        xhr.open("GET",url);
-        xhr.send();
-        }
-        
-        
         
         
         if(country != ""){
@@ -25,7 +17,7 @@ window.onload = function(){
             xhr.send();
         }
         else{
-            alert("Enter a country");
+            
         }
     
     });
@@ -34,10 +26,17 @@ window.onload = function(){
         
         if(xhr.readyState === XMLHttpRequest.DONE){
             if(xhr.status === 200){
+                responseText = xhr.responseText;
                 
+                if(responseText === "FALSE"){
+                    //alert("Sorry. Country not found");
+                    result.innerHTML = "Sorry. Country not found";
                     
-                    result.innerHTML = xhr.responseText;
-                
+                }
+                else{
+                    //alert(responseText);
+                    result.innerHTML = responseText;
+                }
             }
         }
     }
