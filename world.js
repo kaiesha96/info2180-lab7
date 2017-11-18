@@ -1,10 +1,10 @@
+var xhr, url, responseText;
 window.onload = function(){
     var result = document.getElementById("result");
     var btn = document.getElementById("lookup");
     var cuntry = document.getElementById("country");
     var all = document.getElementById("Check");
     
-    var xhr, url, responseText;
     
     btn.addEventListener("click", function(e){
         e.preventDefault(); 
@@ -35,9 +35,10 @@ window.onload = function(){
 		    	}
 		    }
         }
-    
-    });
-    
+    );
+  
+}
+
     function getInfo(){
         
         if(xhr.readyState === XMLHttpRequest.DONE){
@@ -56,4 +57,3 @@ window.onload = function(){
             }
         }
     }
-}
