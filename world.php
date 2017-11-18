@@ -1,39 +1,38 @@
 <?php
 
+
 $country = $_GET['country'];
-$ja = $_GET['Jamaica'];
 $all = $_GET['all'];
-$host = getenv('IP');
-$username = getenv('C9_USER');
-$password = '';
-$dbname = 'world';
 
-$conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+if($country || $all){
 
-$stmt = $conn->query("SELECT * FROM countries");
+    $host = getenv('IP');
+    $username = getenv('C9_USER');
+    $password = '';
+    $dbname = 'world';
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-if($ja == "true"){
-    $qstring = "SELECT * FROM countries where name = '".$Jamaica."'";
-}
-if($all == "true"){
+    if($all == "true"){
         $qstring = "SELECT * FROM countries";
     }
     else{
         $qstring = "SELECT * FROM countries where name LIKE '%".$country."%'";
     }
     
+    $stmt = $conn->query($qstring);
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
     if(empty($results)){
-    
         echo "FALSE";
-    }
-    else{
-    
+    }else{
         echo '<ul>';
         foreach ($results as $row) {
-                echo '<li>' . $row['name'] . ' is ruled by ' . $row['head_of_state'] . '</li>';
-                }
-    echo '</ul>';
+          echo '<li>' . $row['name'] . ' is ruled by ' . $row['head_of_state'] . '</li>';
+        }
+        echo '</ul>';
     }
-
+   
+}
+else{
+    die("Refused");
+}
